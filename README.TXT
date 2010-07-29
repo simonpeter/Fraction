@@ -1,4 +1,4 @@
-BinaryDigit - An example object with JUnit tests.
+Fraction - An example object with JUnit tests.
 
 
 1. COPYRIGHT
@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 4. PURPOSE
 
-BinaryDigit is an example domain object written in Java and accompanied
+Fraction is an example domain object written in Java and accompanied
 by a thorough set of JUnit tests. It is my hope that this code will be
 helpful for those learning JUnit 4.x or improving their JUnit skills.
 
 5. INSTALLING
 
-BinaryDigit is supplied as an Eclipse project. I used Eclipse 3.6 (codename
+Fraction is supplied as an Eclipse project. I used Eclipse 3.6 (codename
 Helios) to create this project structure. Hopefully it will work for you.
 In event of difficulties getting this working with Eclipse, an Ant build
 file is also provided.
