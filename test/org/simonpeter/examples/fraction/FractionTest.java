@@ -13,8 +13,11 @@ import static org.junit.Assert.assertFalse;
 
 
 /**
- * @author Simon P. Chappell
- * @version $Id: FractionTest.java 11 2008-07-18 21:21:13Z Simon $
+ * JUnit tests for {@link Fraction}.
+ *
+ * @author  Simon Peter Chappell
+ * @version 20100731
+ * @see     org.simonpeter.examples.fraction.Fraction
  */
 public class FractionTest {
 
@@ -22,6 +25,10 @@ public class FractionTest {
 	Fraction oneFifth, twoFifths, threeFifths;
 	Fraction oneHalf, twoFourths, threeSixths;
 
+    /**
+     * This method runs before each test and allows us to
+     * create a couple of standard objects for the test.
+     */
 	@Before public void before() {
 		f1 = new Fraction(1,2);
 		f2 = new Fraction(1,2);
@@ -35,6 +42,11 @@ public class FractionTest {
 		threeSixths = new Fraction(3,6);
 	}
 
+    /**
+     * This method runs after each test and allows us to
+     * clear out the test environment and dispose of our
+     * standard test objects.
+     */
 	@After public void after() {
 		f1 = null;
 		f2 = null;
@@ -48,6 +60,10 @@ public class FractionTest {
 		threeSixths = null;
 	}
 
+	/**
+	 * Ensure that we can build a few fractions, using
+	 * known valid values.
+	 */
 	@Test public void testConstructorWithGoodValues() {
 		new Fraction(1, 3);
 		new Fraction(3, 2);
