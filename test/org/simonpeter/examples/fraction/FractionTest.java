@@ -14,9 +14,14 @@ import static org.junit.Assert.assertFalse;
 
 /**
  * JUnit tests for {@link Fraction}.
+ * <p>
+ * In reality, I almost never comment my unit test methods. If the methods
+ * are short enough and have descriptive names, then they really do document
+ * themselves. These are teaching tests, so the normal rules do not apply
+ * and over-explanation is likely good.
  *
  * @author  Simon Peter Chappell
- * @version 20100731
+ * @version 20100822
  * @see     org.simonpeter.examples.fraction.Fraction
  */
 public class FractionTest {
@@ -27,7 +32,7 @@ public class FractionTest {
 
     /**
      * This method runs before each test and allows us to
-     * create a couple of standard objects for the test.
+     * create a couple of standard objects for the tests.
      */
 	@Before public void before() {
 		f1 = new Fraction(1,2);
@@ -63,6 +68,13 @@ public class FractionTest {
 	/**
 	 * Ensure that we can build a few fractions, using
 	 * known valid values.
+	 * <p>
+	 * None of these should throw exceptions, so if they do, JUnit will
+	 * catch them and alert us to the fact that we have a problem.
+	 * <p>
+	 * I'm using a language feature of Java where you don't have to
+	 * use the return value from a method. In this instance, I only want
+	 * to create a fraction and be sure that it didn't throw an exception.
 	 */
 	@Test public void testConstructorWithGoodValues() {
 		new Fraction(1, 3);
@@ -70,23 +82,55 @@ public class FractionTest {
 		new Fraction(1, 1);
 	}
 
+	/**
+	 * Fractions may not have a zero denominator.
+	 * <p>
+	 * In this case I expect to see an exception, specifically an
+	 * {@code IllegalArgumentException} thrown when attempting to
+	 * create a fraction with a zero value denominator.
+	 * <p>
+	 * Think of it as not failing is failing, for this test.
+	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorWithZeroDenominator() {
 		new Fraction(1, 0);
 	}
 
+	/**
+	 * Test the accessors of the object.
+	 * <p>
+	 * As this is an immutable object, there are no setter methods, but
+	 * we are still wise to test the getters. I used to test them all
+	 * individually, but these days I test all the accessors in a single
+	 * method to emphasize their similar purpose.
+	 */
 	@Test public void testAccessors() {
 		assertEquals(1, f1.getNumerator());
 		assertEquals(2, f1.getDenominator());
 	}
 
+	/**
+	 * Test that reduced fractions are equal.
+	 * <p>
+	 * This is where meaningful variable names help to make the tests
+	 * more clear. Here we are testing that one half is equal to two
+	 * fourths reduced. As we don't write tests for tests, the best way
+	 * to make our tests correct is to keep them short and easy to read.
+	 */
 	@Test public void testReduce() {
 		assertEquals(oneHalf, twoFourths.reduce());
 		assertEquals(oneHalf, threeSixths.reduce());
 	}
 
+	/**
+	 * Test that numerically equal fractions are equivalent.
+	 * <p>
+	 * We test at least one actually equal fraction combination.
+	 * And then we test a couple more fraction combinations, where
+	 * one is known to be equivalent and one is known not to be.
+	 */
 	@Test public void testEquivalent() {
-		assertTrue(oneHalf.equivalent(oneHalf));
+		assertTrue(oneHalf.equivalent(f1));
 		assertTrue(oneHalf.equivalent(twoFourths));
 		assertFalse(oneHalf.equivalent(threeFifths));
 	}
@@ -174,20 +218,48 @@ public class FractionTest {
     	assertEquals(h1, h2);
     }
 
+    /**
+     * Test fraction addition.
+     * <p>
+     * I had originally written this one using {@code assertEquals},
+     * but I think that it reads better this way: we are asserting that
+     * it is a true statement that three fifths is equal to the sum of
+     * one fifth and two fifths. Again, descriptive variable names help.
+     */
 	@Test public void testAddition() {
-		assertEquals(threeFifths, oneFifth.add(twoFifths));
+		assertTrue(threeFifths.equals(oneFifth.add(twoFifths)));
 	}
 
+	/**
+	 * Test fraction subtraction.
+	 * <p>
+	 * Using the same approach in our test as we did testing addition.
+	 */
 	@Test public void testSubtraction() {
-		assertEquals(twoFifths, threeFifths.sub(oneFifth));
+		assertTrue(twoFifths.equals(threeFifths.sub(oneFifth)));
 	}
 
+	/**
+	 * Test fraction multiplication.
+	 * <p>
+	 * Using the same approach in our test as we did testing addition.
+	 * <p>
+	 * Although, notice that I changed the unnamed fraction (6/25) to
+	 * be at the end of the test line, as I felt it read better.
+	 */
 	@Test public void testMultiplication() {
-		assertEquals(new Fraction(6,25), threeFifths.mul(twoFifths));
+		assertTrue(threeFifths.mul(twoFifths).equals(new Fraction(6,25)));
 	}
 
+	/**
+	 * Test fraction division.
+	 * <p>
+	 * Using the same approach in our test as we did testing addition
+	 * and with the unnamed fractions at the end of the lines as we did
+	 * in our testing multiplication.
+	 */
 	@Test public void testDivision() {
-		assertEquals(new Fraction(3,2), threeFifths.div(twoFifths));
-		assertEquals(new Fraction(1,1), oneHalf.div(oneHalf));
+		assertTrue(threeFifths.div(twoFifths).equals(new Fraction(3,2)));
+		assertTrue(oneHalf.div(oneHalf).equals(new Fraction(1,1)));
 	}
 }

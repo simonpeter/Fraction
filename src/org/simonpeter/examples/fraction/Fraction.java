@@ -5,26 +5,66 @@
 package org.simonpeter.examples.fraction;
 
 /**
- * A classic mathematical fraction.
+ * Represents a classic mathematical fraction.
+ * <p>
+ * This object was expressly created using Test Driven Design. It is fully
+ * tested and both it and its tests are documented to a greater extent
+ * than normal to allow the student of JUnit and unit testing an opportunity
+ * to review how and why things were done they way they were.
+ * <p>
+ * Because fractions do not change their values, this object is implemented
+ * in immutable fashion.
+ * <p>
+ * More information available on the Wikipedia
+ * <a href="http://en.wikipedia.org/wiki/Fraction_(mathematics)">
+ * Fraction</a> page.
  * 
  * @author Simon Peter Chappell
- * @version 20100728
+ * @version 20100822
  */
 public class Fraction {
 
 	final private int _numerator;
 	final private int _denominator;
 
+
+	/**
+	 * Construct a {@link Fraction}.
+	 * <p>
+	 * This is the public constructor. The fraction does apply validation
+	 * to the denominator and will reject any zero values. The type system
+	 * of Java does the rest of the work and will ensure that the numerator
+	 * and denominator are integers as we have declared them of type 'int'.
+	 * 
+	 * @param n - the numerator
+	 * @param d - the denominator
+	 * 
+	 * @throws java.lang.IllegalArgumentException
+	 */
 	public Fraction(int n, int d) {
 		if (d == 0) { throw new IllegalArgumentException(); }
 		_numerator = n;
 		_denominator = d;
 	}
 
+	/**
+	 * Return the numerator of the fraction.
+	 * <p>
+	 * This is the value on the top of the fraction.
+	 * 
+	 * @return the numerator of the fraction.
+	 */
 	public int getNumerator() {
 		return _numerator;
 	}
 
+	/**
+	 * Return the denominator of the fraction.
+	 * <p>
+	 * This is the value on the bottom of the fraction.
+	 * 
+	 * @return the denominator of the fraction.
+	 */
 	public int getDenominator() {
 		return _denominator;
 	}
@@ -73,6 +113,12 @@ public class Fraction {
 		return result;
 	}
 
+
+	/**
+	 * Reduces a fraction to it's smallest numerically equivalent form.
+	 * 
+	 * @return a fraction that represents the reduced form of the original fraction.
+	 */
 	public Fraction reduce() {
 		int u = _numerator;
 		int v = _denominator;
@@ -87,12 +133,33 @@ public class Fraction {
 		return new Fraction(_numerator / u, _denominator / u);
 	}
 
+	/**
+	 * Two fractions are equivalent if their reduced forms are equal.
+	 * 
+	 * For example, 1/2 and 2/4 are equivalent. They both represent 50% of
+	 * a value. They are stated differently, so while they are not equal
+	 * by strict comparison, they are equal numerically, so I have created
+	 * this method to test that equivalence.
+	 * 
+	 * @param that - the fraction to be compared against.
+	 * @return a boolean true if the two fractions are equivalent, otherwise false.
+	 */
 	public boolean equivalent(Fraction that) {
 		return this.reduce().equals(that.reduce());
 	}
 
+	/**
+	 * Add a fraction to the current value.
+	 * <p>
+	 * This uses the classic equation:
+	 * <blockquote>
+	 * {@code a/b + c/d = ((a*d) + (b*c)) / (b*d)}
+	 * </blockquote>
+	 * 
+	 * @param f - the fraction to add
+	 * @return a fraction representing the sum of the two fractions.
+	 */
 	public Fraction add(Fraction f) {
-		// a/b + c/d = ((a*d) + (b*c)) / (b*d)
 		int a = _numerator;
 		int b = _denominator;
 		int c = f.getNumerator();
@@ -103,8 +170,18 @@ public class Fraction {
 		return new Fraction(num, den).reduce();
 	}
 
+	/**
+	 * Subtract a fraction from the current value.
+	 * <p>
+	 * This uses the classic equation:
+	 * <blockquote>
+	 * {@code a/b - c/d = ((a*d) - (b*c)) / (b*d)}
+	 * </blockquote>
+	 * 
+	 * @param f - the fraction to subtract
+	 * @return a fraction representing the difference of the two fractions.
+	 */
 	public Fraction sub(Fraction f) {
-		// a/b - c/d = ((a*d) - (b*c)) / (b*d)
 		int a = _numerator;
 		int b = _denominator;
 		int c = f.getNumerator();
@@ -115,8 +192,18 @@ public class Fraction {
 		return new Fraction(num, den).reduce();
 	}
 
+	/**
+	 * Multiply a fraction by the current value.
+	 * <p>
+	 * This uses the classic equation:
+	 * <blockquote>
+	 * {@code a/b * c/d = (a*c) / (b*d)}
+	 * </blockquote>
+	 * 
+	 * @param f - the fraction to multiply by
+	 * @return a fraction representing the product of the two fractions.
+	 */
 	public Fraction mul(Fraction f) {
-		// a/b * c/d = (a*c) / (b*d)
 		int a = _numerator;
 		int b = _denominator;
 		int c = f.getNumerator();
@@ -127,8 +214,18 @@ public class Fraction {
 		return new Fraction(num, den).reduce();
 	}
 
+	/**
+	 * Divide the current value by a fraction.
+	 * <p>
+	 * This uses the classic equation:
+	 * <blockquote>
+	 * {@code a/b / c/d = (a*d) / (b*c)}
+	 * </blockquote>
+	 * 
+	 * @param f - the fraction to divide by
+	 * @return a fraction representing the quotient of the two fractions.
+	 */
 	public Fraction div(Fraction f) {
-		// a/b / c/d = (a*d) / (b*c)
 		int a = _numerator;
 		int b = _denominator;
 		int c = f.getNumerator();
