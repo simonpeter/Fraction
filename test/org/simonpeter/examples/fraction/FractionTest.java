@@ -4,12 +4,12 @@
 
 package org.simonpeter.examples.fraction;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 
 /**
@@ -26,15 +26,15 @@ import static org.junit.Assert.assertFalse;
  */
 public class FractionTest {
 
-	Fraction f1, f2, f3, f4;
-	Fraction oneFifth, twoFifths, threeFifths;
-	Fraction oneHalf, twoFourths, threeSixths;
+	private static Fraction f1, f2, f3, f4;
+	private static Fraction oneFifth, twoFifths, threeFifths;
+	private static Fraction oneHalf, twoFourths, threeSixths;
 
     /**
      * This method runs before each test and allows us to
      * create a couple of standard objects for the tests.
      */
-	@Before public void before() {
+	@BeforeClass public static void beforeEverything() {
 		f1 = new Fraction(1,2);
 		f2 = new Fraction(1,2);
 		f3 = new Fraction(1,2);
@@ -52,7 +52,7 @@ public class FractionTest {
      * clear out the test environment and dispose of our
      * standard test objects.
      */
-	@After public void after() {
+	@AfterClass public static void afterEverything() {
 		f1 = null;
 		f2 = null;
 		f3 = null;
